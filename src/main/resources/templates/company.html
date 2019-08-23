@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <title>List User</title>
+</head>
+<body>
+<div class="container">
+    <h2>Input User</h2>
+    <br>
+    <form action="#" th:action="@{/addCompany}" th:object="${comp}" method="post">
+        <input type="hidden" th:field="${comp.id}" class="form-control" id="id" />
+        <div class="form-group row">
+            <label for="compname" class="col-sm-2 col-form-label">Company name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="compname" th:field="*{compname}"
+                       placeholder="Input Company Name">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="position" class="col-sm-2 col-form-label">Position</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="position" th:field="*{position}"
+                       placeholder="Input position">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="worktime" class="col-sm-2 col-form-label">Working Time</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="worktime" th:field="*{worktime}" placeholder="Input Work Time">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-dark" name="add" >Submit</button>
+    </form>
+</div>
+<br>
+<br>
+<div class="container">
+    <h2>List User</h2>
+    <table id="example" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="company : ${companies}">
+            <td th:text="${company.id}"></td>
+            <td th:text="${company.compname}"></td>
+            <td th:text="${company.position}"></td>
+            <td th:text="${company.worktime}"></td>
+            <!--<td><a href="#" th:href="@{|/user/edit/${user.id}|}">Edit</a>|<a href="#" th:href="@{|/user/delete/${user.id}|}">Hapus</a></td>-->
+            <td>
+                <form method="post" action="#" th:action="@{/action}">
+                    <button type="submit" class="btn btn-outline-warning" name="edit" th:value="${company.id}">Edit</button>
+                    <button type="submit" class="btn btn-outline-danger" name="delete" th:value="${company.id}">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+</script>
+</html>

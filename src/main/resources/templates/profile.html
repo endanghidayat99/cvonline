@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="/js/jquery-3.3.1.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/jumbotron.css">
+    <title>Home</title>
+</head>
+<body>
+<th:block th:include="/_header"></th:block>
+<div class="container">
+    <h4>Segera Lengkapi Profile Mu <span th:text="${username}"></span> </h4>
+    <div th:hidden="${ishidden}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Selamat!</strong> Data Berhasil Disimpan.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form action="#" th:action="@{/updateProfile}" th:object="${profile}" method="post">
+        <input type="hidden" th:field="${profile.username}" class="form-control" id="id" />
+        <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" th:field="*{name}">
+            </div>
+        </div>
+        <fieldset class="form-group">
+            <div class="row">
+                <legend class="col-form-label col-sm-2 pt-0">Sex</legend>
+                <div class="col-sm-10">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sex" id="male" value="male" th:field="*{sex}" checked>
+                        <label class="form-check-label" for="male">
+                            Male
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sex" id="female" value="female" th:field="*{sex}" >
+                        <label class="form-check-label" for="female">
+                            Female
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-group row">
+            <label for="address" class="col-sm-2 col-form-label">Address</label>
+            <div class="col-sm-10">
+                <textarea rows="3" class="form-control" id="address" name="address" placeholder="Enter Address" th:field="*{address}"> </textarea>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-dark" name="add" id="btnSubmit" >Submit</button>
+    </form>
+</div>
+<div class="container">
+    <form method="POST" action="/profile/upload" enctype="multipart/form-data">
+        <input type="file" name="file" /><br/><br/>
+        <input type="submit" value="Submit" />
+    </form>
+</div>
+</body>
+</html>
